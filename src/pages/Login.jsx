@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './Login.css';
 
-
 function Login() {
   const [membershipNumber, setMembershipNumber] = useState('');
   const [password, setPassword] = useState('');
@@ -53,12 +52,17 @@ function Login() {
 
   return (
     <div className="login-wrapper">
-      <video autoPlay muted loop className="bg-video">
-        <source src="/videos/luxury.mp4" type="video/mp4" />
-        Your browser does not support video.
+      {/* Background Video */}
+      <video autoPlay muted loop playsInline className="bg-video">
+        <source src="/videos/luxury-login-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
+
+      {/* Dim overlay */}
       <div className="overlay"></div>
-      <div className="login-container">
+
+      {/* Login Box */}
+      <div className="login-container fade-in">
         <h2>Elite Women Login</h2>
         <form onSubmit={handleSubmit}>
           <input
@@ -77,7 +81,11 @@ function Login() {
           />
           <button type="submit">Login</button>
         </form>
+
+        {/* Error Message */}
         {error && <p className="error">{error}</p>}
+
+        {/* Debug Log (optional, can hide in prod) */}
         <pre className="debug-log">
           {debug.map((line, idx) => (
             <div key={idx}>{line}</div>
