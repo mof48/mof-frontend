@@ -1,0 +1,76 @@
+.home-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+}
+
+.bg-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.7);
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.glow {
+  font-size: 3rem;
+  color: #f5cbaa;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #f5cbaa;
+  }
+  to {
+    text-shadow: 0 0 20px #fff2d9;
+  }
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin: 1rem 0 2rem;
+  max-width: 600px;
+  color: #eaeaea;
+}
+
+.home-btn {
+  background-color: #f5cbaa;
+  color: #000;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.home-btn:hover {
+  background-color: #d4af37;
+}
