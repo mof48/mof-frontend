@@ -6,12 +6,16 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <video className="bg-video" autoPlay muted loop>
-        <source src="/videos/luxury.mp4" type="video/mp4" />
+      {/* ✨ Hero Background Video */}
+      <video className="bg-video" autoPlay muted loop playsInline>
+        <source src="/videos/MOF-hero.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+
+      {/* 🔲 Dark overlay for readability */}
       <div className="overlay"></div>
 
+      {/* 🌟 Hero Text Content */}
       <div className="content">
         <h1 className="glow">Manifestors of Freedom</h1>
         <p className="subtitle">
