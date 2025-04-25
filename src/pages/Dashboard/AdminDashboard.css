@@ -1,0 +1,66 @@
+body {
+    background-color: #0b0b0e;
+    color: #eee;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  /* Widget Container */
+  .lux-widget {
+    background: #1a1a1d;
+    padding: 1.5rem;
+    border-left: 4px solid gold;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+  }
+  
+  /* Number Glow */
+  .glow-number {
+    font-size: 2rem;
+    color: gold;
+    text-shadow: 0 0 10px #ffbf00;
+  }
+  
+  /* Admin Avatar */
+  .admin-avatar-glow {
+    width: 90px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #aa00ff;
+  }
+  
+  /* Panel Section */
+  .lux-panel {
+    background: #16161a;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+    margin-top: 2rem;
+  }
+  
+  /* Title */
+  .panel-title {
+    color: orchid;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  /* Navigation List */
+  .lux-nav {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .lux-nav li a {
+    display: block;
+    padding: 10px 15px;
+    color: #bbb;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .lux-nav li a:hover {
+    background: rgba(255, 215, 0, 0.1);
+    color: gold;
+    text-shadow: 0 0 5px gold;
+  }
+  
