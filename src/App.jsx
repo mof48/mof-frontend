@@ -21,7 +21,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
 
-      {/* Admin-only */}
+      {/* Admin Dashboard */}
       <Route
         path="/admin"
         element={
@@ -31,7 +31,7 @@ function App() {
         }
       />
 
-      {/* Member Dashboards (Tiered) */}
+      {/* Member Tiered Dashboards */}
       <Route
         path="/dashboard/gold-rose"
         element={
@@ -57,7 +57,7 @@ function App() {
         }
       />
 
-      {/* Guest */}
+      {/* Guest Dashboard */}
       <Route
         path="/guest"
         element={
