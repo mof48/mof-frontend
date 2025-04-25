@@ -180,4 +180,64 @@
     text-shadow: 0 0 10px #FFD700;
     margin-bottom: 1rem;
   }
+  /* src/components/AdminSidebar.css */
+.lux-sidebar {
+    width: 220px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0e0e0e, #1a1a1a);
+    color: #e0c3fc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 2rem 1rem;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .lux-sidebar-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #d2afff;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .lux-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .lux-nav-link {
+    color: #cfcfcf;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .lux-nav-link:hover,
+  .lux-nav-link.active {
+    background-color: #da70d6;
+    color: #fff;
+    transform: scale(1.03);
+  }
+  
+  /* Mobile friendly */
+  @media (max-width: 768px) {
+    .lux-sidebar {
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      padding: 1rem;
+    }
+  
+    .lux-nav {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
   
