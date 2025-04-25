@@ -1,24 +1,17 @@
 import './AdminDashboard.css';
-import adminAvatar from '../assets/admin-avatar.png'; // your luxury admin image
-import { useEffect, useState } from 'react';
+import adminAvatar from '../assets/admin-avatar.png'; // Replace with your luxury admin image
+import { useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
 const AdminDashboard = () => {
-  const [debug, setDebug] = useState([]);
-
   useEffect(() => {
-    const cards = document.querySelectorAll('.lux-widget');
+    const cards = document.querySelectorAll('.lux-widget, .lux-chart, .lux-requests');
     cards.forEach((card, index) => {
       setTimeout(() => {
         card.classList.add('slide-in');
-      }, index * 300);
+      }, index * 200);
     });
   }, []);
-
-  const handleApproval = (action, name) => {
-    alert(`${action === 'approve' ? '✅ Approved' : '❌ Rejected'} member: ${name}`);
-    setDebug((prev) => [...prev, `${action.toUpperCase()} → ${name}`]);
-  };
 
   return (
     <div className="lux-panel">
@@ -26,30 +19,30 @@ const AdminDashboard = () => {
       <div className="admin-header">
         <img src={adminAvatar} alt="Admin" className="admin-avatar-glow" />
         <div className="admin-info">
-          <h2 className="panel-title">Welcome, Elite Admin</h2>
-          <p>Manage your empire with elegance 🌸</p>
+          <h1 className="lux-title">Welcome, Elite Admin 🌸</h1>
+          <p className="lux-subtitle">Manifest your empire with grace and power.</p>
         </div>
       </div>
 
       {/* Stats Section */}
       <div className="lux-grid">
         <div className="lux-widget">
-          <h3>Members</h3>
-          <p className="glow-number">312</p>
+          <h3 className="lux-widget-title">Total Members</h3>
+          <p className="lux-number">312</p>
         </div>
         <div className="lux-widget">
-          <h3>Pending Approvals</h3>
-          <p className="glow-number">12</p>
+          <h3 className="lux-widget-title">Pending Approvals</h3>
+          <p className="lux-number">12</p>
         </div>
         <div className="lux-widget">
-          <h3>Revenue</h3>
-          <p className="glow-number">$89K</p>
+          <h3 className="lux-widget-title">Revenue</h3>
+          <p className="lux-number">$89K</p>
         </div>
       </div>
 
-      {/* Today's Overview Chart */}
+      {/* Overview Chart */}
       <div className="lux-chart">
-        <h3 className="panel-title">Today’s Overview</h3>
+        <h3 className="lux-section-title">Today's Overview</h3>
         <Chart
           options={{
             chart: { id: 'overview-chart', foreColor: '#eee', toolbar: { show: false } },
@@ -65,37 +58,25 @@ const AdminDashboard = () => {
 
       {/* New Member Requests */}
       <div className="lux-requests">
-        <h3 className="panel-title">New Member Requests</h3>
-
+        <h3 className="lux-section-title">New Member Requests</h3>
         <div className="request-item">
-          <p>Jane Doe <span>• Diamond Orchid</span></p>
+          <div className="request-info">
+            <p>Jane Doe <span>• Diamond Orchid</span></p>
+          </div>
           <div className="request-actions">
-            <button className="approve-btn" onClick={() => handleApproval('approve', 'Jane Doe')}>Approve</button>
-            <button className="reject-btn" onClick={() => handleApproval('reject', 'Jane Doe')}>Reject</button>
+            <button className="approve-btn">Approve</button>
+            <button className="reject-btn">Reject</button>
           </div>
         </div>
-
         <div className="request-item">
-          <p>Sarah Lee <span>• Platinum Lily</span></p>
+          <div className="request-info">
+            <p>Sarah Lee <span>• Platinum Lily</span></p>
+          </div>
           <div className="request-actions">
-            <button className="approve-btn" onClick={() => handleApproval('approve', 'Sarah Lee')}>Approve</button>
-            <button className="reject-btn" onClick={() => handleApproval('reject', 'Sarah Lee')}>Reject</button>
+            <button className="approve-btn">Approve</button>
+            <button className="reject-btn">Reject</button>
           </div>
         </div>
-      </div>
-
-      {/* Debug Section (Optional) */}
-      <div className="lux-debug">
-        {debug.length > 0 && (
-          <>
-            <h4 className="panel-title">Admin Activity Log</h4>
-            <ul>
-              {debug.map((entry, idx) => (
-                <li key={idx}>{entry}</li>
-              ))}
-            </ul>
-          </>
-        )}
       </div>
     </div>
   );
