@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Login.css';
+import './Login.css'; // ✅ Uppercase L here!
 
 function Login() {
   const [membershipNumber, setMembershipNumber] = useState('');
@@ -45,7 +45,8 @@ function Login() {
 
       window.location.href = redirectPath;
     } catch (err) {
-      setError('Something went wrong. Try again.');
+      console.error('❗ Login error:', err);
+      setError('Something went wrong. Please try again.');
       setDebug((prev) => [...prev, `❗ Error: ${err.message}`]);
     }
   };
@@ -58,11 +59,11 @@ function Login() {
         Your browser does not support the video tag.
       </video>
 
-      {/* Dim overlay */}
+      {/* Overlay */}
       <div className="overlay"></div>
 
       {/* Login Box */}
-      <div className="login-container fade-in">
+      <div className="login-container">
         <h2>Elite Women Login</h2>
         <form onSubmit={handleSubmit}>
           <input
@@ -82,15 +83,17 @@ function Login() {
           <button type="submit">Login</button>
         </form>
 
-        {/* Error Message */}
+        {/* Error */}
         {error && <p className="error">{error}</p>}
 
-        {/* Debug Log (optional, can hide in prod) */}
-        <pre className="debug-log">
-          {debug.map((line, idx) => (
-            <div key={idx}>{line}</div>
-          ))}
-        </pre>
+        {/* Debug Log (Optional) */}
+        {debug.length > 0 && (
+          <pre className="debug-log">
+            {debug.map((line, idx) => (
+              <div key={idx}>{line}</div>
+            ))}
+          </pre>
+        )}
       </div>
     </div>
   );
