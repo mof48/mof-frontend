@@ -8,19 +8,34 @@ const AdminSidebar = () => {
         <h2>MOF Admin</h2>
       </div>
       <nav className="lux-nav">
-        <NavLink to="/admin" className="lux-nav-link" activeclassname="active">
+        <NavLink 
+          to="/admin" 
+          className={({ isActive }) => isActive ? "lux-nav-link active" : "lux-nav-link"}
+        >
           🏠 Dashboard
         </NavLink>
-        <NavLink to="/admin/members" className="lux-nav-link" activeclassname="active">
+        <NavLink 
+          to="/admin/members" 
+          className={({ isActive }) => isActive ? "lux-nav-link active" : "lux-nav-link"}
+        >
           👩‍💼 Members
         </NavLink>
-        <NavLink to="/admin/approvals" className="lux-nav-link" activeclassname="active">
+        <NavLink 
+          to="/admin/approvals" 
+          className={({ isActive }) => isActive ? "lux-nav-link active" : "lux-nav-link"}
+        >
           ✅ Approvals
         </NavLink>
-        <NavLink to="/admin/revenue" className="lux-nav-link" activeclassname="active">
+        <NavLink 
+          to="/admin/revenue" 
+          className={({ isActive }) => isActive ? "lux-nav-link active" : "lux-nav-link"}
+        >
           💎 Revenue
         </NavLink>
-        <NavLink to="/admin/settings" className="lux-nav-link" activeclassname="active">
+        <NavLink 
+          to="/admin/settings" 
+          className={({ isActive }) => isActive ? "lux-nav-link active" : "lux-nav-link"}
+        >
           ⚙️ Settings
         </NavLink>
       </nav>
