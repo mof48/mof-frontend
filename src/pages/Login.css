@@ -6,85 +6,77 @@
   box-sizing: border-box;
 }
 
+
 body, html, #root {
   height: 100%;
   font-family: 'Poppins', sans-serif;
 }
 
-.background {
+.luxury-login {
   position: relative;
-  width: 100%;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
-  background: linear-gradient(135deg, #3b0060, #190021);
 }
 
 .bg-video {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: -2;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(30, 0, 50, 0.5);
-  backdrop-filter: blur(8px);
-  z-index: -1;
-}
-
-.login-container {
+.content {
   display: flex;
   height: 100%;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  backdrop-filter: blur(5px);
 }
 
-.login-left, .login-right {
+.left-panel, .right-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 30px;
+  align-items: center;
 }
 
-.login-logo {
+.left-panel {
+  background: rgba(59, 0, 96, 0.5);
+}
+
+.right-panel {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.elite-logo {
   width: 150px;
   margin-bottom: 20px;
 }
 
-.login-slogan {
+.slogan {
   font-family: 'Playfair Display', serif;
   font-size: 28px;
   color: #d4af37;
   text-align: center;
 }
 
-.login-card {
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  border: 1px solid rgba(212, 175, 55, 0.6);
-  padding: 50px;
-  max-width: 400px;
+.login-form {
   width: 100%;
-  text-align: center;
+  max-width: 400px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
 }
 
-.login-title {
+.form-title {
   font-family: 'Playfair Display', serif;
   font-size: 32px;
-  margin-bottom: 20px;
   color: #d4af37;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .input-group {
@@ -94,12 +86,12 @@ body, html, #root {
 
 .input-group input {
   width: 100%;
+  padding: 10px;
   border: none;
   border-bottom: 2px solid #ccc;
-  outline: none;
-  padding: 10px 0;
-  font-size: 16px;
   background: transparent;
+  font-size: 16px;
+  outline: none;
 }
 
 .input-group label {
@@ -108,48 +100,31 @@ body, html, #root {
   top: 10px;
   font-size: 16px;
   color: #999;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   pointer-events: none;
 }
 
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown) + label {
-  top: -14px;
+  top: -16px;
   font-size: 12px;
   color: #d4af37;
 }
 
 .login-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
   background: linear-gradient(135deg, #d4af37, #b76e79);
   color: white;
-  border: none;
-  padding: 14px 24px;
-  border-radius: 30px;
   font-size: 18px;
   cursor: pointer;
-  width: 100%;
-  transition: box-shadow 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .login-button:hover {
-  box-shadow: 0 4px 20px rgba(183, 110, 121, 0.6);
-}
-
-.error {
-  color: red;
-  margin-top: 10px;
-}
-
-.debug-log {
-  margin-top: 20px;
-  text-align: left;
-  font-size: 12px;
-  color: #333;
-  background: #f4f4f4;
-  padding: 10px;
-  border-radius: 10px;
-  max-height: 200px;
-  overflow-y: auto;
+  box-shadow: 0 4px 15px rgba(183, 110, 121, 0.6);
 }
 
 .spinner {
@@ -162,26 +137,10 @@ body, html, #root {
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .login-container {
-    flex-direction: column;
-  }
-
-  .login-left, .login-right {
-    width: 100%;
-  }
-
-  .login-logo {
-    width: 100px;
-  }
-
-  .login-slogan {
-    font-size: 24px;
-  }
-
-  .login-title {
-    font-size: 26px;
-  }
+.error {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
 }
 
 @keyframes spin {
@@ -189,7 +148,19 @@ body, html, #root {
   100% { transform: rotate(360deg); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+  .left-panel, .right-panel {
+    flex: none;
+    width: 100%;
+    padding: 20px;
+  }
+  .slogan {
+    font-size: 22px;
+  }
+  .form-title {
+    font-size: 26px;
+  }
 }

@@ -1,4 +1,4 @@
-// Login.jsx (React Page Component - Upgraded Layout)
+// Login.jsx (Final Corrected Luxury Layout)
 
 import { useState } from 'react';
 import '../pages/Login.css';
@@ -57,22 +57,20 @@ function Login() {
   };
 
   return (
-    <div className="background">
+    <div className="luxury-login">
       <video className="bg-video" autoPlay muted loop playsInline>
         <source src={process.env.PUBLIC_URL + "/videos/high-end-background.mp4"} type="video/mp4" />
-        Your browser does not support video.
       </video>
-      <div className="overlay"></div>
 
-      <div className="login-container">
-        <div className="login-left">
-          <img src={process.env.PUBLIC_URL + "/images/elite-women-logo.png"} alt="Elite Women Logo" className="login-logo" />
-          <h1 className="login-slogan">Welcome to Elite Women</h1>
+      <div className="content">
+        <div className="left-panel">
+          <img src={process.env.PUBLIC_URL + "/images/elite-women-logo.png"} alt="Elite Women Logo" className="elite-logo" />
+          <h1 className="slogan">Welcome to Elite Women</h1>
         </div>
 
-        <div className="login-right">
-          <form onSubmit={handleSubmit} className="login-card">
-            <h2 className="login-title">Member Login</h2>
+        <div className="right-panel">
+          <form onSubmit={handleSubmit} className="login-form">
+            <h2 className="form-title">Member Login</h2>
             <div className="input-group">
               <input
                 type="text"
@@ -98,14 +96,6 @@ function Login() {
             </button>
 
             {error && <p className="error">{error}</p>}
-
-            {debug.length > 0 && (
-              <pre className="debug-log">
-                {debug.map((line, idx) => (
-                  <div key={idx}>{line}</div>
-                ))}
-              </pre>
-            )}
           </form>
         </div>
       </div>
