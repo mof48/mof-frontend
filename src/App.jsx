@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Unauthorized from './pages/Unauthorized';
+import Store from './pages/Store'; 
 
 import AdminDashboard from './pages/Dashboard/AdminDashboard';
 import GoldRoseDashboard from './pages/Dashboard/GoldRoseDashboard';
@@ -20,6 +21,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
+      <Route path="/store" element={<Store />} />
 
       {/* Admin Dashboard */}
       <Route

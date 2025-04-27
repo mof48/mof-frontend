@@ -1,0 +1,73 @@
+.store-page {
+    padding: 4rem 2rem;
+    background: #0e0e0e;
+    color: #f7f2f2;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  .store-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #DA70D6;
+    margin-bottom: 0.5rem;
+  }
+  
+  .store-subtitle {
+    font-size: 1.2rem;
+    color: #b9b9b9;
+    margin-bottom: 3rem;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .product-card {
+    background: #1a1a1a;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(218, 112, 214, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(218, 112, 214, 0.6);
+  }
+  
+  .product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .product-title {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  
+  .product-price {
+    color: #ffd700;
+    margin-bottom: 1rem;
+  }
+  
+  .product-btn {
+    background: #ffd700;
+    color: #000;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .product-btn:hover {
+    background: #e6c200;
+  }
+  

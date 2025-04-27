@@ -11,6 +11,9 @@ const Home = () => {
         <source src="/videos/MOF-hero.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      <button className="store-btn" onClick={() => navigate('/store')}>
+  Visit Our Store
+</button>
 
       {/* 🌑 Overlay for contrast */}
       <div className="home-overlay"></div>
