@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import './Login.css';
 
 function Login() {
@@ -9,35 +8,34 @@ function Login() {
   const [debug, setDebug] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setDebug((prev) => [...prev, '🔑 Submitting login...']);
-    setLoading(true); // ✨ Start loading
-  
+    setLoading(true);
+
     try {
       const res = await fetch('https://api.mofwomen.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ membershipNumber, password }),
       });
-  
+
       const data = await res.json();
       setDebug((prev) => [...prev, `📥 Response: ${JSON.stringify(data)}`]);
-      setLoading(false); // ✨ Stop loading
-  
+      setLoading(false);
+
       if (!res.ok || !data.user) {
         setError(data.message || 'Login failed.');
         return;
       }
-  
+
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
-  
+
       const role = data.user.role?.toLowerCase();
       const tier = data.user.tier?.toLowerCase();
-  
+
       let redirectPath = '/';
       if (role === 'admin') redirectPath = '/admin';
       else if (role === 'member') {
@@ -47,15 +45,15 @@ function Login() {
         else redirectPath = '/dashboard';
       } else if (role === 'speaker') redirectPath = '/speaker';
       else if (role === 'guest') redirectPath = '/guest';
-  
+
       window.location.href = redirectPath;
     } catch (err) {
       setError('Something went wrong. Please try again.');
-      setLoading(false); // ✨ Stop loading
+      setLoading(false);
       setDebug((prev) => [...prev, `❗ Error: ${err.message}`]);
     }
   };
-  
+
   return (
     <div className="login-wrapper">
       {/* Background Video */}
@@ -68,28 +66,27 @@ function Login() {
       <div className="overlay"></div>
 
       {/* Login Container */}
-      <<div className="welcome-animation">Welcome Back, Beautiful.</div>
-<h2>Elite Women Login</h2>
+      <div className="welcome-animation">Welcome Back, Beautiful.</div>
+      <h2>Elite Women Login</h2>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Membership #"
-            value={membershipNumber}
-            onChange={(e) => setMembershipNumber(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-         <button type="submit" disabled={loading}>
-  {loading ? <div className="spinner"></div> : "Login"}
-</button>
- 
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Membership #"
+          value={membershipNumber}
+          onChange={(e) => setMembershipNumber(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit" disabled={loading}>
+          {loading ? <div className="spinner"></div> : "Login"}
+        </button>
 
         {error && <p className="error">{error}</p>}
 
@@ -100,7 +97,7 @@ function Login() {
             ))}
           </pre>
         )}
-      </div>
+      </form>
     </div>
   );
 }
