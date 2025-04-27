@@ -1,4 +1,4 @@
-// Login.jsx (React Page Component)
+// Login.jsx (React Page Component - Upgraded Layout)
 
 import { useState } from 'react';
 import '../pages/Login.css';
@@ -59,52 +59,55 @@ function Login() {
   return (
     <div className="background">
       <video className="bg-video" autoPlay muted loop playsInline>
-        <source src="/videos/high-end-background.mp4" type="video/mp4" />
+        <source src={process.env.PUBLIC_URL + "/videos/high-end-background.mp4"} type="video/mp4" />
         Your browser does not support video.
       </video>
-
       <div className="overlay"></div>
 
-      <div className="login-wrapper">
-        <img src="/images/elite-women-logo.png" alt="Elite Women Logo" className="login-logo" />
-        <div className="welcome-animation">Welcome Back, Beautiful.</div>
-        <h2 className="login-title">Elite Women Login</h2>
+      <div className="login-container">
+        <div className="login-left">
+          <img src={process.env.PUBLIC_URL + "/images/elite-women-logo.png"} alt="Elite Women Logo" className="login-logo" />
+          <h1 className="login-slogan">Welcome to Elite Women</h1>
+        </div>
 
-        <form onSubmit={handleSubmit} className="login-card">
-          <div className="input-group">
-            <input
-              type="text"
-              placeholder=" "
-              value={membershipNumber}
-              onChange={(e) => setMembershipNumber(e.target.value)}
-              required
-            />
-            <label>Membership #</label>
-          </div>
-          <div className="input-group">
-            <input
-              type="password"
-              placeholder=" "
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <label>Password</label>
-          </div>
-          <button type="submit" className="login-button" disabled={loading}>
-            {loading ? <div className="spinner"></div> : 'Login'}
-          </button>
+        <div className="login-right">
+          <form onSubmit={handleSubmit} className="login-card">
+            <h2 className="login-title">Member Login</h2>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder=" "
+                value={membershipNumber}
+                onChange={(e) => setMembershipNumber(e.target.value)}
+                required
+              />
+              <label>Membership #</label>
+            </div>
+            <div className="input-group">
+              <input
+                type="password"
+                placeholder=" "
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <label>Password</label>
+            </div>
+            <button type="submit" className="login-button" disabled={loading}>
+              {loading ? <div className="spinner"></div> : 'Login'}
+            </button>
 
-          {error && <p className="error">{error}</p>}
+            {error && <p className="error">{error}</p>}
 
-          {debug.length > 0 && (
-            <pre className="debug-log">
-              {debug.map((line, idx) => (
-                <div key={idx}>{line}</div>
-              ))}
-            </pre>
-          )}
-        </form>
+            {debug.length > 0 && (
+              <pre className="debug-log">
+                {debug.map((line, idx) => (
+                  <div key={idx}>{line}</div>
+                ))}
+              </pre>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );
