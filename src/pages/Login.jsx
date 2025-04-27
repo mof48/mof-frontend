@@ -58,16 +58,15 @@ function Login() {
 
   return (
     <div className="background">
-      {/* Background Video */}
       <video className="bg-video" autoPlay muted loop playsInline>
-        <source src="/videos/luxury-login-bg.mp4" type="video/mp4" />
+        <source src="/videos/high-end-background.mp4" type="video/mp4" />
         Your browser does not support video.
       </video>
 
-      {/* Overlay */}
       <div className="overlay"></div>
 
       <div className="login-wrapper">
+        <img src="/images/elite-women-logo.png" alt="Elite Women Logo" className="login-logo" />
         <div className="welcome-animation">Welcome Back, Beautiful.</div>
         <h2 className="login-title">Elite Women Login</h2>
 

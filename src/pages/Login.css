@@ -19,6 +19,7 @@ body, html, #root {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(135deg, #3b0060, #190021);
 }
 
 .bg-video {
@@ -37,39 +38,45 @@ body, html, #root {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(6px);
+  background: rgba(30, 0, 50, 0.5);
+  backdrop-filter: blur(8px);
   z-index: -1;
 }
 
 .login-wrapper {
   text-align: center;
   animation: fadeIn 1.2s ease;
+  padding: 20px;
+}
+
+.login-logo {
+  width: 120px;
+  margin-bottom: 20px;
 }
 
 .login-card {
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 16px;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  padding: 40px;
-  max-width: 400px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  padding: 50px;
+  max-width: 500px;
   width: 90%;
   margin: 0 auto;
 }
 
 .login-title {
   font-family: 'Playfair Display', serif;
-  font-size: 32px;
+  font-size: 36px;
   margin-bottom: 20px;
-  color: #b76e79;
+  color: #d4af37;
 }
 
 .welcome-animation {
-  font-size: 20px;
+  font-size: 22px;
   margin-bottom: 10px;
-  color: #b76e79;
+  color: #d4af37;
   animation: fadeIn 2s ease;
 }
 
@@ -102,23 +109,23 @@ body, html, #root {
 .input-group input:not(:placeholder-shown) + label {
   top: -14px;
   font-size: 12px;
-  color: #b76e79;
+  color: #d4af37;
 }
 
 .login-button {
   background: linear-gradient(135deg, #d4af37, #b76e79);
   color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 25px;
-  font-size: 16px;
+  padding: 14px 24px;
+  border-radius: 30px;
+  font-size: 18px;
   cursor: pointer;
   width: 100%;
   transition: box-shadow 0.3s ease;
 }
 
 .login-button:hover {
-  box-shadow: 0 4px 15px rgba(183, 110, 121, 0.6);
+  box-shadow: 0 4px 20px rgba(183, 110, 121, 0.6);
 }
 
 .error {
@@ -146,6 +153,24 @@ body, html, #root {
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .login-card {
+    padding: 30px;
+  }
+
+  .login-logo {
+    width: 90px;
+  }
+
+  .login-title {
+    font-size: 28px;
+  }
+
+  .welcome-animation {
+    font-size: 18px;
+  }
 }
 
 @keyframes spin {
