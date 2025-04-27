@@ -1,5 +1,7 @@
+// Login.jsx (React Page Component)
+
 import { useState } from 'react';
-import './Login.css';
+import '../pages/Login.css';
 
 function Login() {
   const [membershipNumber, setMembershipNumber] = useState('');
@@ -55,7 +57,7 @@ function Login() {
   };
 
   return (
-    <div className="login-wrapper">
+    <div className="background">
       {/* Background Video */}
       <video className="bg-video" autoPlay muted loop playsInline>
         <source src="/videos/luxury-login-bg.mp4" type="video/mp4" />
@@ -65,39 +67,46 @@ function Login() {
       {/* Overlay */}
       <div className="overlay"></div>
 
-      {/* Login Container */}
-      <div className="welcome-animation">Welcome Back, Beautiful.</div>
-      <h2>Elite Women Login</h2>
+      <div className="login-wrapper">
+        <div className="welcome-animation">Welcome Back, Beautiful.</div>
+        <h2 className="login-title">Elite Women Login</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Membership #"
-          value={membershipNumber}
-          onChange={(e) => setMembershipNumber(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? <div className="spinner"></div> : "Login"}
-        </button>
+        <form onSubmit={handleSubmit} className="login-card">
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder=" "
+              value={membershipNumber}
+              onChange={(e) => setMembershipNumber(e.target.value)}
+              required
+            />
+            <label>Membership #</label>
+          </div>
+          <div className="input-group">
+            <input
+              type="password"
+              placeholder=" "
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <label>Password</label>
+          </div>
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? <div className="spinner"></div> : 'Login'}
+          </button>
 
-        {error && <p className="error">{error}</p>}
+          {error && <p className="error">{error}</p>}
 
-        {debug.length > 0 && (
-          <pre className="debug-log">
-            {debug.map((line, idx) => (
-              <div key={idx}>{line}</div>
-            ))}
-          </pre>
-        )}
-      </form>
+          {debug.length > 0 && (
+            <pre className="debug-log">
+              {debug.map((line, idx) => (
+                <div key={idx}>{line}</div>
+              ))}
+            </pre>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
