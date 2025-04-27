@@ -1,122 +1,159 @@
-.login-wrapper {
+/* Login.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html, #root {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.background {
   position: relative;
   width: 100%;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Video Background */
 .bg-video {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.4);
   z-index: -2;
 }
 
-/* Dark overlay */
 .overlay {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(10, 10, 10, 0.6);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
   z-index: -1;
 }
 
-/* Centered Login Box */
-.login-container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  padding: 3rem 2rem;
-  border-radius: 20px;
+.login-wrapper {
+  text-align: center;
+  animation: fadeIn 1.2s ease;
+}
+
+.login-card {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 40px;
   max-width: 400px;
   width: 90%;
-  text-align: center;
-  color: gold;
-  box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
-  z-index: 1;
+  margin: 0 auto;
 }
 
-.login-container h2 {
+.login-title {
   font-family: 'Playfair Display', serif;
-  margin-bottom: 2rem;
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #b76e79;
 }
 
-/* Inputs & Buttons */
-.login-container input,
-.login-container button {
+.welcome-animation {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #b76e79;
+  animation: fadeIn 2s ease;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.input-group input {
   width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border-radius: 12px;
   border: none;
+  border-bottom: 2px solid #ccc;
   outline: none;
+  padding: 10px 0;
+  font-size: 16px;
+  background: transparent;
 }
 
-.login-container input {
-  background: rgba(255, 255, 255, 0.2);
+.input-group label {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  font-size: 16px;
+  color: #999;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -14px;
+  font-size: 12px;
+  color: #b76e79;
+}
+
+.login-button {
+  background: linear-gradient(135deg, #d4af37, #b76e79);
   color: white;
-}
-
-.login-container button {
-  background-color: gold;
-  color: black;
-  font-weight: bold;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 16px;
   cursor: pointer;
+  width: 100%;
+  transition: box-shadow 0.3s ease;
 }
 
-.login-container button:hover {
-  background-color: #e5c100;
+.login-button:hover {
+  box-shadow: 0 4px 15px rgba(183, 110, 121, 0.6);
 }
 
 .error {
-  color: #ff4b4b;
-  margin-top: 1rem;
-}
-/* === Welcome Animation === */
-.welcome-animation {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  color: #FFD700;
-  animation: fadeSlideIn 2s ease forwards;
-  margin-bottom: 1rem;
-  opacity: 0;
+  color: red;
+  margin-top: 10px;
 }
 
-/* Animation Keyframes */
-@keyframes fadeSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.debug-log {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 12px;
+  color: #333;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 10px;
+  max-height: 200px;
+  overflow-y: auto;
 }
-.welcome-animation {
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-}
+
 .spinner {
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #FFD700; /* Gold shimmer */
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #b76e79;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
   animation: spin 1s linear infinite;
-  margin: auto;
+  margin: 0 auto;
 }
 
-/* Spinner Animation */
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
