@@ -1,9 +1,9 @@
 import './AdminDashboard.css';
-import adminAvatar from '../../assets/admin-avatar.png'; // Correct path
+import adminAvatar from '../../assets/admin-avatar.png'; 
 import { useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import AdminSidebar from '../../components/AdminSidebar'; // ✅ Sidebar
-import Timeline from './Timeline'; // ✅ Timeline
+import AdminSidebar from '../../components/AdminSidebar';
+import Timeline from './Timeline';
 
 const AdminDashboard = () => {
   useEffect(() => {
@@ -16,14 +16,12 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div className="lux-admin-layout"> {/* 🌟 KEY: wrap sidebar + content in a flex layout */}
-      
+    <div className="lux-admin-layout">
       {/* Sidebar */}
       <AdminSidebar />
 
       {/* Main Content */}
       <div className="lux-main-content">
-        
         {/* Admin Header */}
         <div className="admin-header">
           <img src={adminAvatar} alt="Admin" className="admin-avatar-glow" />
@@ -65,7 +63,7 @@ const AdminDashboard = () => {
           />
         </div>
 
-        {/* Timeline Section */}
+        {/* Timeline */}
         <div className="lux-timeline-section">
           <Timeline />
         </div>
@@ -92,7 +90,6 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

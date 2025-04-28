@@ -1,195 +1,197 @@
 /* === Black Orchid Luxury Theme === */
-body, .lux-panel {
-    background: linear-gradient(135deg, #0d0d0d, #1a001a);
-    color: #eee;
-    font-family: 'Playfair Display', serif;
-    min-height: 100vh;
+body, .lux-admin-layout {
+  background: linear-gradient(135deg, #0d0d0d, #1a001a);
+  color: #eee;
+  font-family: 'Playfair Display', serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* === Layout: Sidebar + Main Content === */
+.lux-admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.lux-sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #141414;
+  padding: 1.5rem;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.7);
+  position: relative;
+}
+
+.lux-main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* === Admin Header === */
+.admin-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.admin-avatar-glow {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 2px solid gold;
+  box-shadow: 0 0 20px gold;
+}
+
+.admin-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.lux-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: gold;
+}
+
+.lux-subtitle {
+  color: #d3b0ff;
+  font-size: 1.1rem;
+}
+
+/* === Dashboard Cards === */
+.lux-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.lux-widget {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid gold;
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.lux-widget:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(218, 112, 214, 0.5);
+}
+
+.lux-widget-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.lux-number {
+  font-size: 2rem;
+  color: #ffb6c1;
+  font-weight: bold;
+}
+
+/* === Chart Section === */
+.lux-chart {
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid gold;
+}
+
+.lux-section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #ffd700;
+}
+
+/* === Member Requests Section === */
+.lux-requests {
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid gold;
+}
+
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  padding: 0.8rem;
+  background-color: #1f001f;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.request-item:hover {
+  background-color: #260026;
+}
+
+.request-info p {
+  color: #eee;
+  font-size: 1.1rem;
+}
+
+.request-info span {
+  color: #ff8ed6;
+  font-weight: 500;
+}
+
+.approve-btn, .reject-btn {
+  background: gold;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  margin-left: 0.5rem;
+}
+
+.approve-btn:hover {
+  background: #e5c100;
+  transform: scale(1.05);
+}
+
+.reject-btn {
+  background: #ff4d4d;
+  color: white;
+}
+
+.reject-btn:hover {
+  background: #e60000;
+  transform: scale(1.05);
+}
+
+/* === Timeline Section === */
+.lux-timeline-section {
+  margin-top: 3rem;
+}
+
+/* === Animations === */
+.slide-in {
+  animation: slideIn 1s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  /* === Layout === */
-  .lux-panel {
-    display: flex;
-    min-height: 100vh;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Sidebar and Main Content */
-  .lux-main-content {
-    flex: 1;
-    padding: 2rem;
-  }
-  
-  /* Admin Header */
-  .admin-header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  
-  .admin-avatar-glow {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    border: 2px solid gold;
-    box-shadow: 0 0 20px gold;
-  }
-  
-  .admin-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .lux-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: gold;
-  }
-  
-  .lux-subtitle {
-    color: #d3b0ff;
-    font-size: 1.1rem;
-  }
-  
-  /* Grid and Cards */
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
   .lux-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    grid-template-columns: 1fr;
   }
-  
-  .lux-widget {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid gold;
-    border-radius: 15px;
-    padding: 1.5rem;
-    text-align: center;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-  }
-  
-  .lux-widget:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(218, 112, 214, 0.5);
-  }
-  
-  .lux-widget-title {
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
-  }
-  
-  .lux-number {
-    font-size: 2rem;
-    color: #ffb6c1;
-    font-weight: bold;
-  }
-  
-  /* Chart */
-  .lux-chart {
-    margin-top: 2rem;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 2rem;
-    border-radius: 15px;
-    border: 1px solid gold;
-  }
-  
-  .lux-section-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: #ffd700;
-  }
-  
-  /* Member Requests */
-  .lux-requests {
-    margin-top: 2rem;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 2rem;
-    border-radius: 15px;
-    border: 1px solid gold;
-  }
-  
-  .request-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.2rem;
-    padding: 0.8rem;
-    background-color: #1f001f;
-    border-radius: 10px;
-    transition: background 0.3s;
-  }
-  
-  .request-item:hover {
-    background-color: #260026;
-  }
-  
-  .request-info p {
-    color: #eee;
-    font-size: 1.1rem;
-  }
-  
-  .request-info span {
-    color: #ff8ed6;
-    font-weight: 500;
-  }
-  
-  /* Approve & Reject Buttons */
-  .approve-btn, .reject-btn {
-    background: gold;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    margin-left: 0.5rem;
-  }
-  
-  .approve-btn:hover {
-    background: #e5c100;
-    transform: scale(1.05);
-  }
-  
-  .reject-btn {
-    background: #ff4d4d;
-    color: white;
-  }
-  
-  .reject-btn:hover {
-    background: #e60000;
-    transform: scale(1.05);
-  }
-  
-  /* Animations */
-  .slide-in {
-    animation: slideIn 1s ease forwards;
-  }
-  
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .lux-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  .lux-admin-layout {
-    display: flex;
-    min-height: 100vh;
-    background: linear-gradient(to bottom right, #0b0b0c, #1e1e1e); /* black orchid gradient */
-  }
-  
-  .lux-main-content {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-  }
-  
+}
