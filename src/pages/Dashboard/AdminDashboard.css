@@ -181,4 +181,15 @@ body, .lux-panel {
       grid-template-columns: 1fr;
     }
   }
+  .lux-admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #0b0b0c, #1e1e1e); /* black orchid gradient */
+  }
+  
+  .lux-main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+  }
   

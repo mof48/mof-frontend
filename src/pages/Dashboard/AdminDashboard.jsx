@@ -1,9 +1,9 @@
 import './AdminDashboard.css';
-import adminAvatar from '../../assets/admin-avatar.png'; // Corrected path
+import adminAvatar from '../../assets/admin-avatar.png'; // Correct path
 import { useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import AdminSidebar from '../../components/AdminSidebar'; // Import sidebar
-import Timeline from './Timeline'; // 📌 Correct path!
+import AdminSidebar from '../../components/AdminSidebar'; // ✅ Sidebar
+import Timeline from './Timeline'; // ✅ Timeline
 
 const AdminDashboard = () => {
   useEffect(() => {
@@ -16,12 +16,14 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div className="lux-panel">
+    <div className="lux-admin-layout"> {/* 🌟 KEY: wrap sidebar + content in a flex layout */}
+      
       {/* Sidebar */}
       <AdminSidebar />
 
       {/* Main Content */}
       <div className="lux-main-content">
+        
         {/* Admin Header */}
         <div className="admin-header">
           <img src={adminAvatar} alt="Admin" className="admin-avatar-glow" />
@@ -62,11 +64,11 @@ const AdminDashboard = () => {
             height={250}
           />
         </div>
-        {/* Timeline Section */}
-<div className="lux-timeline-section">
-  <Timeline />
-</div>
 
+        {/* Timeline Section */}
+        <div className="lux-timeline-section">
+          <Timeline />
+        </div>
 
         {/* New Member Requests */}
         <div className="lux-requests">
@@ -90,6 +92,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
