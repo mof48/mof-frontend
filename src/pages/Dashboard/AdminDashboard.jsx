@@ -3,6 +3,7 @@ import adminAvatar from '../../assets/admin-avatar.png'; // Corrected path
 import { useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import AdminSidebar from '../../components/AdminSidebar'; // Import sidebar
+import Timeline from './Timeline'; // 📌 Correct path!
 
 const AdminDashboard = () => {
   useEffect(() => {
@@ -61,6 +62,11 @@ const AdminDashboard = () => {
             height={250}
           />
         </div>
+        {/* Timeline Section */}
+<div className="lux-timeline-section">
+  <Timeline />
+</div>
+
 
         {/* New Member Requests */}
         <div className="lux-requests">
