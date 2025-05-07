@@ -1,96 +1,105 @@
-import './AdminDashboard.css';
-import adminAvatar from '../../assets/admin-avatar.png'; 
 import { useEffect } from 'react';
 import Chart from 'react-apexcharts';
+import { motion } from 'framer-motion';
+import adminAvatar from '../../assets/admin-avatar.png';
 import AdminSidebar from '../../components/AdminSidebar';
 import Timeline from './Timeline';
 
 const AdminDashboard = () => {
   useEffect(() => {
-    const cards = document.querySelectorAll('.lux-widget, .lux-chart, .lux-requests');
-    cards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add('slide-in');
-      }, index * 200);
-    });
+    window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="lux-admin-layout">
+    <div className="flex min-h-screen bg-gray-950 text-white">
       {/* Sidebar */}
       <AdminSidebar />
 
       {/* Main Content */}
-      <div className="lux-main-content">
-        {/* Admin Header */}
-        <div className="admin-header">
-          <img src={adminAvatar} alt="Admin" className="admin-avatar-glow" />
-          <div className="admin-info">
-            <h1 className="lux-title">Welcome, Elite Admin 🌸</h1>
-            <p className="lux-subtitle">Manifest your empire with grace and power.</p>
+      <main className="flex-1 p-6 space-y-8 overflow-y-auto">
+        {/* Header */}
+        <div className="flex items-center gap-4">
+          <img src={adminAvatar} alt="Admin" className="w-16 h-16 rounded-full border-4 border-pink-500 shadow-lg" />
+          <div>
+            <h1 className="text-2xl font-bold">Welcome, Elite Admin 🌸</h1>
+            <p className="text-sm text-gray-400">Manifest your empire with grace and power.</p>
           </div>
         </div>
 
-        {/* Stats Section */}
-        <div className="lux-grid">
-          <div className="lux-widget">
-            <h3 className="lux-widget-title">Total Members</h3>
-            <p className="lux-number">312</p>
-          </div>
-          <div className="lux-widget">
-            <h3 className="lux-widget-title">Pending Approvals</h3>
-            <p className="lux-number">12</p>
-          </div>
-          <div className="lux-widget">
-            <h3 className="lux-widget-title">Revenue</h3>
-            <p className="lux-number">$89K</p>
-          </div>
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { title: 'Total Members', value: '312' },
+            { title: 'Pending Approvals', value: '12' },
+            { title: 'Revenue', value: '$89K' },
+          ].map((stat, i) => (
+            <motion.div
+              key={stat.title}
+              className="bg-gray-800 p-6 rounded-2xl shadow-md"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.2 }}
+            >
+              <h3 className="text-lg font-medium">{stat.title}</h3>
+              <p className="text-3xl font-bold mt-2">{stat.value}</p>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Overview Chart */}
-        <div className="lux-chart">
-          <h3 className="lux-section-title">Today's Overview</h3>
+        {/* Chart */}
+        <motion.div
+          className="bg-gray-800 p-6 rounded-2xl shadow-md"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <h3 className="text-lg font-semibold mb-4">Today's Overview</h3>
           <Chart
             options={{
-              chart: { id: 'overview-chart', foreColor: '#eee', toolbar: { show: false } },
+              chart: { id: 'overview', foreColor: '#eee', toolbar: { show: false } },
               xaxis: { categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] },
-              colors: ['#DA70D6'],
-              grid: { borderColor: '#555' },
+              colors: ['#ec4899'],
+              grid: { borderColor: '#444' },
             }}
             series={[{ name: 'Signups', data: [3, 5, 8, 6, 7, 4, 9] }]}
             type="line"
             height={250}
           />
-        </div>
+        </motion.div>
 
         {/* Timeline */}
-        <div className="lux-timeline-section">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+        >
           <Timeline />
-        </div>
+        </motion.div>
 
-        {/* New Member Requests */}
-        <div className="lux-requests">
-          <h3 className="lux-section-title">New Member Requests</h3>
-          <div className="request-item">
-            <div className="request-info">
-              <p>Jane Doe <span>• Diamond Orchid</span></p>
+        {/* Requests */}
+        <motion.div
+          className="bg-gray-800 p-6 rounded-2xl shadow-md"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+        >
+          <h3 className="text-lg font-semibold mb-4">New Member Requests</h3>
+          {[
+            { name: 'Jane Doe', tier: 'Diamond Orchid' },
+            { name: 'Sarah Lee', tier: 'Platinum Lily' },
+          ].map((req, i) => (
+            <div key={i} className="flex justify-between items-center py-2 border-b border-gray-700">
+              <p>
+                {req.name} <span className="text-pink-400">• {req.tier}</span>
+              </p>
+              <div className="flex gap-2">
+                <button className="bg-green-600 hover:bg-green-700 text-sm px-3 py-1 rounded">Approve</button>
+                <button className="bg-red-600 hover:bg-red-700 text-sm px-3 py-1 rounded">Reject</button>
+              </div>
             </div>
-            <div className="request-actions">
-              <button className="approve-btn">Approve</button>
-              <button className="reject-btn">Reject</button>
-            </div>
-          </div>
-          <div className="request-item">
-            <div className="request-info">
-              <p>Sarah Lee <span>• Platinum Lily</span></p>
-            </div>
-            <div className="request-actions">
-              <button className="approve-btn">Approve</button>
-              <button className="reject-btn">Reject</button>
-            </div>
-          </div>
-        </div>
-      </div>
+          ))}
+        </motion.div>
+      </main>
     </div>
   );
 };
