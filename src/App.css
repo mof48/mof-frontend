@@ -1,0 +1,26 @@
+/* === Black Orchid Luxury Theme === */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Playfair Display', serif;
+    background: linear-gradient(135deg, #0d0d0d, #1a001a);
+    color: #eee;
+  }
+  
+  .text-gold {
+    color: #FFD700;
+  }
+  
+  .bg-gold {
+    background-color: #FFD700;
+  }
+  
+  .border-gold {
+    border-color: #FFD700;
+  }
+  
+  .shadow-gold {
+    box-shadow: 0 0 10px #FFD700;
+  }
+  
