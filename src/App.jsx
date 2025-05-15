@@ -1,6 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Dashboard components
+// Public Pages
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Store from './pages/Store';
+import Unauthorized from './pages/Unauthorized';
+import NotFound from './pages/NotFound';
+
+// Dashboard Components
 import AdminDashboard from './pages/Dashboard/AdminDashboard';
 import GoldRoseDashboard from './pages/Dashboard/GoldRoseDashboard';
 import PlatinumLilyDashboard from './pages/Dashboard/PlatinumLilyDashboard';
@@ -8,20 +16,12 @@ import DiamondOrchidDashboard from './pages/Dashboard/DiamondOrchidDashboard';
 import GuestDashboard from './pages/Dashboard/GuestDashboard';
 import SpeakerDashboard from './pages/Dashboard/SpeakerDashboard';
 
-// Pages
-import Login from './pages/Login';
-import NotFound from './pages/NotFound';
+// User Pages
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import ChangePassword from './pages/ChangePassword';
 
-// Optional public pages (you can uncomment if needed)
-// import Home from './pages/Home';
-// import Signup from './pages/Signup';
-// import Store from './pages/Store';
-// import Unauthorized from './pages/Unauthorized';
-
-// Route protection
+// Route Protection
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -29,18 +29,18 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-[#0d0d0d] to-[#1a001a] text-white font-playfair">
         <Routes>
-          {/* Public Routes */}
-          {/* <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/store" element={<Store />} /> */}
+          {/* ✅ Public Routes */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
 
-          {/* Protected Dashboards */}
+          {/* 🔒 Protected Dashboards */}
           <Route
             path="/admin"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['admin']}>
                 <AdminDashboard />
               </ProtectedRoute>
             }
@@ -48,7 +48,7 @@ function App() {
           <Route
             path="/dashboard/gold-rose"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['gold-rose']}>
                 <GoldRoseDashboard />
               </ProtectedRoute>
             }
@@ -56,7 +56,7 @@ function App() {
           <Route
             path="/dashboard/platinum-lily"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['platinum-lily']}>
                 <PlatinumLilyDashboard />
               </ProtectedRoute>
             }
@@ -64,7 +64,7 @@ function App() {
           <Route
             path="/dashboard/diamond-orchid"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['diamond-orchid']}>
                 <DiamondOrchidDashboard />
               </ProtectedRoute>
             }
@@ -72,7 +72,7 @@ function App() {
           <Route
             path="/guest"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['guest']}>
                 <GuestDashboard />
               </ProtectedRoute>
             }
@@ -80,13 +80,13 @@ function App() {
           <Route
             path="/dashboard/speaker"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute allowedRoles={['speaker']}>
                 <SpeakerDashboard />
               </ProtectedRoute>
             }
           />
 
-          {/* Profile / Settings / Change Password */}
+          {/* 👤 Profile & Settings */}
           <Route
             path="/profile"
             element={
@@ -112,7 +112,7 @@ function App() {
             }
           />
 
-          {/* 404 Fallback */}
+          {/* ❌ Fallback for unknown routes */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
