@@ -2,17 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
 /* Tailwind core styles */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 
 /* Global base styles */
 body {
-  @apply font-playfair bg-black text-white;
+  font-family: 'Playfair Display', serif; /* Assuming 'font-playfair' refers to this font */
+  background-color: black;
+  color: white;
 }
 
 /* Gold Glow Effect */
 .text-gold-glow {
-  @apply text-gold;
+  color: gold; /* Assuming 'text-gold' refers to this color */
   text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
 }
+
