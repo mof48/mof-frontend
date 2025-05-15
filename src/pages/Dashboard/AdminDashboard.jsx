@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
-import DashboardHero from '@/components/DashboardHero'; // ✅ Use alias if Vite alias is configured
+import DashboardHero from '../../components/DashboardHero';
 import {
   ResponsiveContainer,
   LineChart,
