@@ -1,0 +1,18 @@
+/* Luxury Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+/* Tailwind core styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global base styles */
+body {
+  @apply font-playfair bg-black text-white;
+}
+
+/* Gold Glow Effect */
+.text-gold-glow {
+  @apply text-gold;
+  text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+}

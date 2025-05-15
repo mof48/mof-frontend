@@ -1,0 +1,17 @@
+# SPA fallback (must be at the top)
+/*    /index.html   200
+
+# Optional: redirect /logout to /login
+/logout   /login   302
+
+# Optional: force lowercase routes or simplify access
+/admin    /admin   200
+/dashboard/gold-rose   /dashboard/gold-rose   200
+/dashboard/platinum-lily  /dashboard/platinum-lily   200
+/dashboard/diamond-orchid /dashboard/diamond-orchid  200
+/dashboard/speaker   /dashboard/speaker   200
+/guest    /guest   200
+
+# Optional: handle 404s with custom React route
+# Uncomment if you have a NotFound.jsx route
+# /404    /index.html   404
