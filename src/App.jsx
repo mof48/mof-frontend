@@ -7,6 +7,7 @@ import Signup from './pages/Signup';
 import Store from './pages/Store';
 import Unauthorized from './pages/Unauthorized';
 import NotFound from './pages/NotFound';
+import Join from './pages/Join'; // ✅ New import
 
 // Dashboard Components
 import AdminDashboard from './pages/Dashboard/AdminDashboard';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/store" element={<Store />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/join" element={<Join />} /> {/* ✅ New Join route */}
 
           {/* 🔒 Protected Dashboards */}
           <Route
