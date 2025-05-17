@@ -34,7 +34,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/store" element={<Store />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
-
+        <Route path="/join" element={<Join />} /> {/* ✅ Join route added */}
+       
         {/* 🔒 Protected Dashboards */}
         <Route
           path="/admin"
