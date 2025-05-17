@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 // Public Pages
 import Home from './pages/Home';
@@ -26,98 +26,95 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gradient-to-br from-[#0d0d0d] to-[#1a001a] text-white font-playfair">
-        <Routes>
-          {/* ✅ Public Access */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
+    <div className="min-h-screen bg-gradient-to-br from-[#0d0d0d] to-[#1a001a] text-white font-playfair">
+      <Routes>
+        {/* ✅ Public Access */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
 
-          {/* Optional Public Landing Page */}
-          <Route path="/" element={<Home />} />
+        {/* 🔒 Protected Dashboards */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/gold-rose"
+          element={
+            <ProtectedRoute allowedRoles={['gold-rose']}>
+              <GoldRoseDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/platinum-lily"
+          element={
+            <ProtectedRoute allowedRoles={['platinum-lily']}>
+              <PlatinumLilyDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/diamond-orchid"
+          element={
+            <ProtectedRoute allowedRoles={['diamond-orchid']}>
+              <DiamondOrchidDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/guest"
+          element={
+            <ProtectedRoute allowedRoles={['guest']}>
+              <GuestDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/speaker"
+          element={
+            <ProtectedRoute allowedRoles={['speaker']}>
+              <SpeakerDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-          {/* 🔒 Protected Routes */}
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/gold-rose"
-            element={
-              <ProtectedRoute allowedRoles={['gold-rose']}>
-                <GoldRoseDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/platinum-lily"
-            element={
-              <ProtectedRoute allowedRoles={['platinum-lily']}>
-                <PlatinumLilyDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/diamond-orchid"
-            element={
-              <ProtectedRoute allowedRoles={['diamond-orchid']}>
-                <DiamondOrchidDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/guest"
-            element={
-              <ProtectedRoute allowedRoles={['guest']}>
-                <GuestDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard/speaker"
-            element={
-              <ProtectedRoute allowedRoles={['speaker']}>
-                <SpeakerDashboard />
-              </ProtectedRoute>
-            }
-          />
+        {/* 👤 User Pages */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/change-password"
+          element={
+            <ProtectedRoute>
+              <ChangePassword />
+            </ProtectedRoute>
+          }
+        />
 
-          {/* 👤 User Pages */}
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <ProtectedRoute>
-                <Settings />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/change-password"
-            element={
-              <ProtectedRoute>
-                <ChangePassword />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* ❌ 404 Fallback */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
-    </Router>
+        {/* ❌ 404 Fallback */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   );
 }
 
