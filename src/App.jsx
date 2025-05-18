@@ -7,6 +7,7 @@ import Signup from './pages/Signup';
 import Store from './pages/Store';
 import Unauthorized from './pages/Unauthorized';
 import NotFound from './pages/NotFound';
+import Join from './pages/Join';
 
 // User Pages
 import Profile from './pages/Profile';
