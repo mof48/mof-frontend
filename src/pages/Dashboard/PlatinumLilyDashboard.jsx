@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
+import ContactRequestButton from '../components/ContactRequestButton';
+
+// Inside map loop or user profile
+<ContactRequestButton recipientId={user._id} />
 
 const PlatinumLilyDashboard = () => {
   const navigate = useNavigate();
