@@ -1,40 +1,45 @@
 import React, { useState } from 'react';
+import { sendContactRequest } from '../api/contactApi';
 
-const ContactRequestButton = ({ recipientId }) => {
+const ContactRequestButton = ({ toUserId }) => {
   const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleRequest = async () => {
-    setStatus('loading');
+  const handleSendRequest = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await fetch('https://api.mofwomen.com/api/contact-requests', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ recipientId }),
-      });
-      const data = await res.json();
-      setStatus(data.success ? 'sent' : 'error');
+      setStatus('sending');
+      await sendContactRequest(toUserId, message);
+      setStatus('sent');
     } catch (err) {
-      console.error(err);
+      setError(err.message);
       setStatus('error');
     }
   };
 
   return (
-    <button
-      onClick={handleRequest}
-      disabled={status === 'loading' || status === 'sent'}
-      className={`px-4 py-2 rounded-full font-semibold text-sm ${
-        status === 'sent'
-          ? 'bg-green-600 text-white cursor-default'
-          : 'bg-gold text-black hover:bg-yellow-400'
-      }`}
-    >
-      {status === 'sent' ? 'Request Sent' : status === 'loading' ? 'Sending...' : 'Add Contact'}
-    </button>
+    <div className="space-y-2">
+      {status === 'idle' && (
+        <>
+          <input
+            type="text"
+            placeholder="Optional message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="w-full text-black px-3 py-2 rounded border"
+          />
+          <button
+            onClick={handleSendRequest}
+            className="bg-gold text-black font-medium px-4 py-2 rounded hover:bg-yellow-400 transition"
+          >
+            Add Contact
+          </button>
+        </>
+      )}
+      {status === 'sending' && <p className="text-sm text-gray-400">Sending request...</p>}
+      {status === 'sent' && <p className="text-green-400 text-sm">Request sent!</p>}
+      {status === 'error' && <p className="text-red-400 text-sm">{error}</p>}
+    </div>
   );
 };
 
