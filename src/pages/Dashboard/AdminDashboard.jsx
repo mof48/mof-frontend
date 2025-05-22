@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
-import DashboardHero from "@/components/DashboardHero";
+import DashboardHero from '@/components/DashboardHero';
+import ContactRequestsTab from '../../components/ContactRequestsTab';
 import {
   ResponsiveContainer,
   LineChart,
@@ -11,10 +12,6 @@ import {
   YAxis,
   Tooltip,
 } from 'recharts';
-import ContactRequestButton from '../components/ContactRequestButton';
-
-// Inside map loop or user profile
-<ContactRequestButton recipientId={user._id} />
 
 const AdminDashboard = () => {
   const [user, setUser] = useState({ name: 'Elite Admin' });
@@ -115,6 +112,11 @@ const AdminDashboard = () => {
               ))}
             </ul>
           )}
+        </div>
+
+        {/* Contact Requests Section */}
+        <div className="mt-12">
+          <ContactRequestsTab />
         </div>
       </div>
     </div>
