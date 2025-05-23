@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import DashboardHero from '@/components/DashboardHero';
 import ContactRequestsTab from '../../components/ContactRequestsTab';
+import ProfileSettings from '@/components/ProfileSettings'; // ✅ NEW
+
 import {
   ResponsiveContainer,
   LineChart,
@@ -65,6 +67,10 @@ const AdminDashboard = () => {
           message="Manifest your empire with grace and power."
         />
 
+        {/* 👇 NEW: Profile Editing Area */}
+        <ProfileSettings user={user} />
+
+        {/* Existing Dashboard Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <StatCard title="Total Members" value={stats.totalMembers || 0} />
           <StatCard title="Pending Approvals" value={stats.pendingApprovals || 0} />
@@ -114,7 +120,6 @@ const AdminDashboard = () => {
           )}
         </div>
 
-        {/* Contact Requests Section */}
         <div className="mt-12">
           <ContactRequestsTab />
         </div>
