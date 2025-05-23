@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
-import ContactRequestButton from '../components/ContactRequestButton';
+import ContactRequestButton from '../../components/ContactRequestButton'; // ✅ Correct path
 
 
 const GoldRoseDashboard = () => {
