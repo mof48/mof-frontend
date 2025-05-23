@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import DashboardHero from '@/components/DashboardHero';
 import ContactRequestsTab from '../../components/ContactRequestsTab';
-import ProfileSettings from '@/components/ProfileSettings'; // ✅ NEW
+import ProfileSettings from '@/components/ProfileSettings';
+import ShadowProfileEditor from '@/components/ShadowProfileEditor'; // ✅ new
+import PostComposer from '@/components/PostComposer'; // ✅ new
+import PostFeed from '@/components/PostFeed'; // ✅ new
 
 import {
   ResponsiveContainer,
@@ -67,17 +69,23 @@ const AdminDashboard = () => {
           message="Manifest your empire with grace and power."
         />
 
-        {/* 👇 NEW: Profile Editing Area */}
+        {/* ✅ Profile + Shadow Edit */}
         <ProfileSettings user={user} />
+        <ShadowProfileEditor user={user} />
 
-        {/* Existing Dashboard Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {/* ✅ Post Composer & Feed */}
+        <PostComposer user={user} />
+        <PostFeed />
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-12">
           <StatCard title="Total Members" value={stats.totalMembers || 0} />
           <StatCard title="Pending Approvals" value={stats.pendingApprovals || 0} />
           <StatCard title="Revenue" value={`$${(stats.revenue || 0).toLocaleString()}`} />
           <StatCard title="New Signups" value={stats.newSignups || 0} />
         </div>
 
+        {/* Chart */}
         <div className="bg-white/10 border border-gold rounded-xl p-6 shadow-lg mb-12">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gold">Signups & Revenue</h2>
@@ -104,6 +112,7 @@ const AdminDashboard = () => {
           </ResponsiveContainer>
         </div>
 
+        {/* Recent Approvals */}
         <div className="bg-white/10 border border-gold rounded-xl p-6 shadow-lg">
           <h2 className="text-lg font-semibold text-gold mb-4">Recent Member Approvals</h2>
           {recent.length === 0 ? (
@@ -120,6 +129,7 @@ const AdminDashboard = () => {
           )}
         </div>
 
+        {/* Contact Requests */}
         <div className="mt-12">
           <ContactRequestsTab />
         </div>

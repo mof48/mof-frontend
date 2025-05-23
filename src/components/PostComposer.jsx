@@ -3,25 +3,41 @@ import React, { useState } from 'react';
 const PostComposer = ({ user }) => {
   const [content, setContent] = useState('');
   const [currentPersona, setCurrentPersona] = useState('admin');
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState('');
 
   const handlePost = async () => {
-    if (!content.trim()) return alert('Enter content');
+    if (!content.trim()) {
+      setFeedback('❌ Please enter some content.');
+      return;
+    }
 
-    const token = localStorage.getItem('token');
-    await fetch('/api/posts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        content,
-        identity: currentPersona,
-      }),
-    });
+    try {
+      setLoading(true);
+      const token = localStorage.getItem('token');
 
-    alert('✅ Post published');
-    setContent('');
+      const res = await fetch('/api/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          content,
+          identity: currentPersona,
+        }),
+      });
+
+      if (!res.ok) throw new Error('Failed to post');
+
+      setContent('');
+      setFeedback('✅ Post published successfully.');
+    } catch (err) {
+      setFeedback('❌ Could not publish post.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,10 +64,13 @@ const PostComposer = ({ user }) => {
 
       <button
         onClick={handlePost}
-        className="mt-4 bg-gold text-black px-4 py-2 rounded hover:bg-yellow-400"
+        disabled={loading}
+        className="mt-4 bg-gold text-black px-4 py-2 rounded hover:bg-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Post
+        {loading ? 'Posting...' : 'Post'}
       </button>
+
+      {feedback && <p className="mt-4 text-sm text-white">{feedback}</p>}
     </div>
   );
 };
