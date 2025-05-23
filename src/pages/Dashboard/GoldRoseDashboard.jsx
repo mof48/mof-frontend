@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import ContactRequestButton from '../components/ContactRequestButton';
 
-// Inside map loop or user profile
-<ContactRequestButton recipientId={user._id} />
 
 const GoldRoseDashboard = () => {
   const navigate = useNavigate();
