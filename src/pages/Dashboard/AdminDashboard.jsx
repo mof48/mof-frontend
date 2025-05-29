@@ -3,9 +3,10 @@ import Navbar from '../../components/Navbar';
 import DashboardHero from '@/components/DashboardHero';
 import ContactRequestsTab from '../../components/ContactRequestsTab';
 import ProfileSettings from '@/components/ProfileSettings';
-import ShadowProfileEditor from '@/components/ShadowProfileEditor'; // ✅ new
-import PostComposer from '@/components/PostComposer'; // ✅ new
-import PostFeed from '@/components/PostFeed'; // ✅ new
+import ShadowProfileEditor from '@/components/ShadowProfileEditor';
+import PostComposer from '@/components/PostComposer';
+import PostFeed from '@/components/PostFeed';
+import SuggestedMembers from '@/components/SuggestedMembers'; // ✅ NEW IMPORT
 
 import {
   ResponsiveContainer,
@@ -76,6 +77,12 @@ const AdminDashboard = () => {
         {/* ✅ Post Composer & Feed */}
         <PostComposer user={user} />
         <PostFeed />
+
+        {/* ✅ Suggested Members */}
+        <div className="mt-16 bg-white/10 border border-gold p-6 rounded-xl shadow-md">
+          <h2 className="text-lg font-semibold text-gold mb-4">✨ Members You May Know</h2>
+          <SuggestedMembers userId={user._id} />
+        </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-12">

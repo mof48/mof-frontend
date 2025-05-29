@@ -24,7 +24,7 @@ const PostComposer = ({ user }) => {
         },
         body: JSON.stringify({
           content,
-          identity: currentPersona,
+          identity: currentPersona, // ✅ pass persona toggle
         }),
       });
 
@@ -33,8 +33,8 @@ const PostComposer = ({ user }) => {
       setContent('');
       setFeedback('✅ Post published successfully.');
     } catch (err) {
-      setFeedback('❌ Could not publish post.');
       console.error(err);
+      setFeedback('❌ Could not publish post.');
     } finally {
       setLoading(false);
     }
@@ -42,8 +42,8 @@ const PostComposer = ({ user }) => {
 
   return (
     <div className="bg-white/10 border border-gold p-6 rounded-xl text-white shadow-md max-w-2xl mx-auto mt-12">
-      <div className="mb-4">
-        <label className="text-sm text-white mr-3">Post as:</label>
+      <div className="mb-4 flex items-center gap-4">
+        <label className="text-sm text-white">Post as:</label>
         <select
           value={currentPersona}
           onChange={(e) => setCurrentPersona(e.target.value)}
@@ -70,7 +70,11 @@ const PostComposer = ({ user }) => {
         {loading ? 'Posting...' : 'Post'}
       </button>
 
-      {feedback && <p className="mt-4 text-sm text-white">{feedback}</p>}
+      {feedback && (
+        <p className={`mt-4 text-sm ${feedback.includes('✅') ? 'text-green-400' : 'text-red-400'}`}>
+          {feedback}
+        </p>
+      )}
     </div>
   );
 };
