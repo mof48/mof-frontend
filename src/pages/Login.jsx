@@ -85,7 +85,7 @@ function Login() {
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full px-4 md:px-16">
         {/* Left Side */}
         <div className="md:w-1/2 mb-8 md:mb-0 text-center md:text-left space-y-4">
-          <img src="/images/elite-women-logo.png" alt="Elite Women Logo" className="mx-auto md:mx-0 w-48" />
+        <img src="/images/mof-static.jpg" alt="MOF Logo" className="mx-auto md:mx-0 w-48" />
           <h1 className="text-3xl font-bold text-gold">Welcome to Elite Women</h1>
           <p className="text-pink-300">Enter the sanctuary of brilliance and beauty.</p>
         </div>
