@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../components/Navbar';
+import Navbar from '@/components/Navbar';
 import DashboardHero from '@/components/DashboardHero';
-import ContactRequestsTab from '../../components/ContactRequestsTab';
+import ContactRequestsTab from '@/components/ContactRequestsTab';
 import ProfileSettings from '@/components/ProfileSettings';
 import ShadowProfileEditor from '@/components/ShadowProfileEditor';
 import PostComposer from '@/components/PostComposer';
 import PostFeed from '@/components/PostFeed';
-import SuggestedMembers from '@/components/SuggestedMembers'; // ✅ NEW IMPORT
+import SuggestedMembers from '@/components/SuggestedMembers';
 
 import {
   ResponsiveContainer,
@@ -19,29 +19,25 @@ import {
 } from 'recharts';
 
 const AdminDashboard = () => {
-  const [user, setUser] = useState({ name: 'Elite Admin' });
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')) || { name: 'Elite Admin' });
   const [stats, setStats] = useState({});
   const [chartData, setChartData] = useState([]);
   const [recent, setRecent] = useState([]);
   const [range, setRange] = useState('7d');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const token = localStorage.getItem('token');
+  const headers = { Authorization: `Bearer ${token}` };
 
   const fetchChartData = (rangeValue) => {
-    const token = localStorage.getItem('token');
-    const headers = { Authorization: `Bearer ${token}` };
-
     fetch(`https://api.mofwomen.com/api/admin/chart-data?range=${rangeValue}`, { headers })
       .then((res) => res.json())
       .then(setChartData)
       .catch(console.error);
   };
 
-  useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('user') || '{}');
-    if (stored?.name) setUser(stored);
-
-    const token = localStorage.getItem('token');
-    const headers = { Authorization: `Bearer ${token}` };
-
+  const fetchDashboardData = () => {
     fetch('https://api.mofwomen.com/api/admin/stats', { headers })
       .then((res) => res.json())
       .then(setStats)
@@ -53,32 +49,145 @@ const AdminDashboard = () => {
       .catch(console.error);
 
     fetchChartData(range);
+  };
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem('user') || '{}');
+    if (stored?.name) setUser(stored);
+
+    fetchDashboardData();
+
+    const interval = setInterval(() => {
+      fetchDashboardData();
+    }, 30000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     fetchChartData(range);
   }, [range]);
 
+  const handleSwitchToOrchid = () => {
+    const updated = {
+      ...user,
+      shadowProfile: {
+        name: 'Black Orchid',
+        bio: 'Elite Persona',
+      },
+    };
+    localStorage.setItem('user', JSON.stringify(updated));
+    setUser(updated);
+  };
+
+  const handleSearch = () => {
+    fetch(`https://api.mofwomen.com/api/admin/search-users?q=${searchTerm}`, { headers })
+      .then((res) => res.json())
+      .then(setSearchResults)
+      .catch(console.error);
+  };
+
+  const handleImpersonate = (userId) => {
+    fetch(`https://api.mofwomen.com/api/admin/impersonate/${userId}`, { headers })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.token && data.user) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          window.location.href = '/';
+        } else {
+          alert('Failed to impersonate user.');
+        }
+      })
+      .catch(console.error);
+  };
+
+  const exportApprovalsCSV = () => {
+    const rows = [['Name', 'Tier', 'Date']];
+    recent.forEach((r) => {
+      rows.push([r.name, r.tier, r.date]);
+    });
+
+    const csvContent = rows.map((r) => r.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'recent-approvals.csv';
+    a.click();
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black to-[#1a001a] text-white font-playfair">
       <Navbar />
-
       <div className="pt-32 px-6 max-w-7xl mx-auto">
+
         <DashboardHero
-          name={user.name?.split(' ')[0] || 'Admin'}
+          name={user?.name?.split(' ')[0] || 'Admin'}
           tier="admin"
           message="Manifest your empire with grace and power."
         />
 
-        {/* ✅ Profile + Shadow Edit */}
+        {/* 🌸 Orchid Profile Button */}
+        <div className="mb-6">
+          <button
+            onClick={handleSwitchToOrchid}
+            className="bg-pink-800 hover:bg-pink-700 text-white font-semibold py-2 px-4 rounded"
+          >
+            Switch to Orchid Profile
+          </button>
+          {user.shadowProfile?.name && (
+            <p className="mt-2 text-pink-300">Viewing as: {user.shadowProfile.name}</p>
+          )}
+        </div>
+
+        {/* 🔍 User Search */}
+        <div className="mb-10">
+          <h2 className="text-lg text-gold font-semibold mb-2">🔍 Search Members</h2>
+          <div className="flex gap-3 items-center">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search by name, email or tier..."
+              className="px-4 py-2 rounded bg-white/10 border border-white/20 text-white w-full"
+            />
+            <button
+              onClick={handleSearch}
+              className="bg-gold hover:bg-yellow-400 text-black px-4 py-2 rounded font-semibold"
+            >
+              Search
+            </button>
+          </div>
+
+          {searchResults.length > 0 && (
+            <div className="mt-4 bg-white/5 p-4 rounded-lg">
+              <ul className="space-y-2 text-sm">
+                {searchResults.map((u) => (
+                  <li key={u._id} className="flex justify-between border-b border-white/10 pb-2">
+                    <div>
+                      <strong className="text-gold">{u.name}</strong> – {u.email} – {u.tier}
+                    </div>
+                    <button
+                      onClick={() => handleImpersonate(u._id)}
+                      className="text-xs bg-white text-black px-3 py-1 rounded hover:bg-gray-200"
+                    >
+                      Login as
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Profile & Posts */}
         <ProfileSettings user={user} />
         <ShadowProfileEditor user={user} />
-
-        {/* ✅ Post Composer & Feed */}
         <PostComposer user={user} />
         <PostFeed />
 
-        {/* ✅ Suggested Members */}
+        {/* Suggestions */}
         <div className="mt-16 bg-white/10 border border-gold p-6 rounded-xl shadow-md">
           <h2 className="text-lg font-semibold text-gold mb-4">✨ Members You May Know</h2>
           <SuggestedMembers userId={user._id} />
@@ -96,15 +205,23 @@ const AdminDashboard = () => {
         <div className="bg-white/10 border border-gold rounded-xl p-6 shadow-lg mb-12">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gold">Signups & Revenue</h2>
-            <select
-              value={range}
-              onChange={(e) => setRange(e.target.value)}
-              className="bg-black border border-white/20 text-white px-3 py-1 rounded-md text-sm"
-            >
-              <option value="7d">Last 7 Days</option>
-              <option value="30d">Last 30 Days</option>
-              <option value="90d">Last 90 Days</option>
-            </select>
+            <div className="flex gap-4">
+              <select
+                value={range}
+                onChange={(e) => setRange(e.target.value)}
+                className="bg-black border border-white/20 text-white px-3 py-1 rounded-md text-sm"
+              >
+                <option value="7d">Last 7 Days</option>
+                <option value="30d">Last 30 Days</option>
+                <option value="90d">Last 90 Days</option>
+              </select>
+              <button
+                onClick={() => exportApprovalsCSV()}
+                className="bg-gold hover:bg-yellow-400 text-black font-semibold py-1 px-3 rounded text-sm"
+              >
+                Export CSV
+              </button>
+            </div>
           </div>
 
           <ResponsiveContainer width="100%" height={300}>
@@ -121,15 +238,31 @@ const AdminDashboard = () => {
 
         {/* Recent Approvals */}
         <div className="bg-white/10 border border-gold rounded-xl p-6 shadow-lg">
-          <h2 className="text-lg font-semibold text-gold mb-4">Recent Member Approvals</h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold text-gold">Recent Member Approvals</h2>
+            <button
+              onClick={exportApprovalsCSV}
+              className="bg-gold hover:bg-yellow-400 text-black font-semibold py-1 px-3 rounded text-sm"
+            >
+              Export CSV
+            </button>
+          </div>
           {recent.length === 0 ? (
             <p className="text-rose-200 italic">No recent activity</p>
           ) : (
             <ul className="space-y-3 text-sm text-white">
               {recent.map((r, i) => (
-                <li key={i} className="border-b border-white/10 pb-2">
-                  <strong className="text-gold">{r.name}</strong> joined as{' '}
-                  <span className="capitalize">{r.tier.replace('-', ' ')}</span> on {r.date}
+                <li key={i} className="border-b border-white/10 pb-2 flex justify-between items-center">
+                  <div>
+                    <strong className="text-gold">{r.name}</strong> joined as{' '}
+                    <span className="capitalize">{r.tier.replace('-', ' ')}</span> on {r.date}
+                  </div>
+                  <button
+                    onClick={() => handleImpersonate(r.userId)}
+                    className="bg-white text-black px-3 py-1 rounded text-xs font-semibold hover:bg-gray-200"
+                  >
+                    Login as
+                  </button>
                 </li>
               ))}
             </ul>

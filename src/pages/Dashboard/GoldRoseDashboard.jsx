@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import ContactRequestButton from '../../components/ContactRequestButton'; // ✅ Correct path
-
+import Navbar from '@/components/Navbar';
+import ContactRequestButton from '@/components/ContactRequestButton';
+import ProfileCard from '@/components/ProfileCard';
+import PostFeed from '@/components/PostFeed';
+import SuggestedMembers from '@/components/SuggestedMembers';
 
 const GoldRoseDashboard = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   useEffect(() => {
     if (!user || user.role?.toLowerCase() !== 'member' || user.tier?.toLowerCase() !== 'gold-rose') {
       navigate('/login');
     }
-  }, []);
+  }, [navigate, user]);
 
   return (
     <div className="relative min-h-screen text-white font-sans bg-black">
@@ -31,7 +33,7 @@ const GoldRoseDashboard = () => {
       <div className="relative z-10 min-h-screen bg-black/60 backdrop-blur-sm pt-28 px-4">
         <div className="text-center mb-10">
           <img
-            src="/images/Elite Women.png"
+            src="/images/mof-static.jpg"
             alt="Elite Women Logo"
             className="w-32 h-32 mx-auto mb-6"
           />
@@ -43,9 +45,23 @@ const GoldRoseDashboard = () => {
           </p>
         </div>
 
-        <main className="max-w-6xl mx-auto px-4 pb-12">
-          {/* Perks & Highlights */}
-          <section className="grid md:grid-cols-2 gap-6 mb-10">
+        <main className="max-w-6xl mx-auto px-4 pb-12 space-y-10">
+
+          {/* Profile, Friends, Feed */}
+          <section className="grid md:grid-cols-3 gap-6">
+            <div className="col-span-1">
+              <ProfileCard user={user} />
+            </div>
+
+            <div className="col-span-2 space-y-6">
+              <PostFeed />
+              <SuggestedMembers />
+              <ContactRequestButton />
+            </div>
+          </section>
+
+          {/* Perks */}
+          <section className="grid md:grid-cols-2 gap-6">
             <div className="bg-black border border-gold rounded-lg p-6">
               <h3 className="text-xl font-bold mb-2">🌟 Your Gold Perks</h3>
               <ul className="list-disc list-inside text-gray-300">
@@ -67,17 +83,18 @@ const GoldRoseDashboard = () => {
             </div>
           </section>
 
-          {/* Stats */}
-          <section className="bg-black border border-gold rounded-lg p-6 mb-10">
-            <h3 className="text-xl font-bold mb-2">📈 Progress Overview</h3>
-            <p>Mentorship Sessions: <strong>12</strong></p>
-            <p>Events Attended: <strong>6</strong></p>
-          </section>
+          {/* Stats & Chart */}
+          <section className="grid md:grid-cols-2 gap-6">
+            <div className="bg-black border border-gold rounded-lg p-6">
+              <h3 className="text-xl font-bold mb-2">📈 Progress Overview</h3>
+              <p>Mentorship Sessions: <strong>12</strong></p>
+              <p>Events Attended: <strong>6</strong></p>
+            </div>
 
-          {/* Placeholder Chart */}
-          <section className="bg-white text-black rounded-lg p-6">
-            <h3 className="text-lg font-bold mb-2">📊 Growth Journey (Placeholder)</h3>
-            <p>Chart area coming soon...</p>
+            <div className="bg-white text-black rounded-lg p-6">
+              <h3 className="text-lg font-bold mb-2">📊 Growth Journey (Placeholder)</h3>
+              <p>Chart area coming soon...</p>
+            </div>
           </section>
         </main>
 
