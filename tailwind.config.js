@@ -1,5 +1,5 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+// tailwind.config.js
+module.exports = {
   content: [
     './index.html',
     './src/**/*.{js,jsx,ts,tsx}',
@@ -8,22 +8,10 @@ export default {
     extend: {
       colors: {
         gold: '#FFD700',
-        orchid: '#DA70D6',
-        'dark-rose': '#1a001a',
-        'rose-glow': '#ff8ed6',
-        rose: {
-          200: '#fbb6ce',
+        pink: {
+          200: '#FBB6CE',
+          300: '#F687B3',
         },
-      },
-      fontFamily: {
-        playfair: ['"Playfair Display"', 'serif'],
-        serif: ['Playfair Display', 'serif'],
-      },
-      boxShadow: {
-        glow: '0 0 20px gold',
-      },
-      backgroundImage: {
-        'black-orchid': 'linear-gradient(135deg, #0d0d0d, #1a001a)',
       },
     },
   },
