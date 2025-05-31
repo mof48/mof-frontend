@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import Navbar from '@/components/Navbar';
 import DashboardHero from '@/components/DashboardHero';
 import ContactRequestsTab from '@/components/ContactRequestsTab';
@@ -56,11 +57,7 @@ const AdminDashboard = () => {
     if (stored?.name) setUser(stored);
 
     fetchDashboardData();
-
-    const interval = setInterval(() => {
-      fetchDashboardData();
-    }, 30000);
-
+    const interval = setInterval(fetchDashboardData, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -69,6 +66,7 @@ const AdminDashboard = () => {
   }, [range]);
 
   const handleSwitchToOrchid = () => {
+    toast.loading('Switching to Orchid...');
     const updated = {
       ...user,
       shadowProfile: {
@@ -78,28 +76,44 @@ const AdminDashboard = () => {
     };
     localStorage.setItem('user', JSON.stringify(updated));
     setUser(updated);
+    toast.dismiss();
+    toast.success('You are now viewing as Black Orchid 🌺');
   };
 
   const handleSearch = () => {
+    toast.loading('Searching members...');
     fetch(`https://api.mofwomen.com/api/admin/search-users?q=${searchTerm}`, { headers })
       .then((res) => res.json())
-      .then(setSearchResults)
-      .catch(console.error);
+      .then((data) => {
+        setSearchResults(data);
+        toast.dismiss();
+        toast.success(`${data.length} results found.`);
+      })
+      .catch(() => {
+        toast.dismiss();
+        toast.error('Search failed. Try again.');
+      });
   };
 
   const handleImpersonate = (userId) => {
+    toast.loading('Logging in as user...');
     fetch(`https://api.mofwomen.com/api/admin/impersonate/${userId}`, { headers })
       .then((res) => res.json())
       .then((data) => {
         if (data.token && data.user) {
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
-          window.location.href = '/';
+          toast.success('Switched user — refreshing...');
+          setTimeout(() => (window.location.href = '/'), 1000);
         } else {
-          alert('Failed to impersonate user.');
+          toast.dismiss();
+          toast.error('Failed to impersonate.');
         }
       })
-      .catch(console.error);
+      .catch(() => {
+        toast.dismiss();
+        toast.error('Impersonation error.');
+      });
   };
 
   const exportApprovalsCSV = () => {
@@ -107,10 +121,8 @@ const AdminDashboard = () => {
     recent.forEach((r) => {
       rows.push([r.name, r.tier, r.date]);
     });
-
     const csvContent = rows.map((r) => r.join(',')).join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv' });
-
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'recent-approvals.csv';
@@ -120,15 +132,15 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black to-[#1a001a] text-white font-playfair">
       <Navbar />
-      <div className="pt-32 px-6 max-w-7xl mx-auto">
+      <Toaster position="top-right" reverseOrder={false} />
 
+      <div className="pt-32 px-6 max-w-7xl mx-auto">
         <DashboardHero
           name={user?.name?.split(' ')[0] || 'Admin'}
           tier="admin"
           message="Manifest your empire with grace and power."
         />
 
-        {/* 🌸 Orchid Profile Button */}
         <div className="mb-6">
           <button
             onClick={handleSwitchToOrchid}
@@ -141,7 +153,6 @@ const AdminDashboard = () => {
           )}
         </div>
 
-        {/* 🔍 User Search */}
         <div className="mb-10">
           <h2 className="text-lg text-gold font-semibold mb-2">🔍 Search Members</h2>
           <div className="flex gap-3 items-center">
@@ -181,19 +192,16 @@ const AdminDashboard = () => {
           )}
         </div>
 
-        {/* Profile & Posts */}
         <ProfileSettings user={user} />
         <ShadowProfileEditor user={user} />
         <PostComposer user={user} />
         <PostFeed />
 
-        {/* Suggestions */}
         <div className="mt-16 bg-white/10 border border-gold p-6 rounded-xl shadow-md">
           <h2 className="text-lg font-semibold text-gold mb-4">✨ Members You May Know</h2>
           <SuggestedMembers userId={user._id} />
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-12">
           <StatCard title="Total Members" value={stats.totalMembers || 0} />
           <StatCard title="Pending Approvals" value={stats.pendingApprovals || 0} />
@@ -201,7 +209,6 @@ const AdminDashboard = () => {
           <StatCard title="New Signups" value={stats.newSignups || 0} />
         </div>
 
-        {/* Chart */}
         <div className="bg-white/10 border border-gold rounded-xl p-6 shadow-lg mb-12">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gold">Signups & Revenue</h2>
@@ -216,7 +223,7 @@ const AdminDashboard = () => {
                 <option value="90d">Last 90 Days</option>
               </select>
               <button
-                onClick={() => exportApprovalsCSV()}
+                onClick={exportApprovalsCSV}
                 className="bg-gold hover:bg-yellow-400 text-black font-semibold py-1 px-3 rounded text-sm"
               >
                 Export CSV
@@ -236,17 +243,8 @@ const AdminDashboard = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Recent Approvals */}
         <div className="bg-white/10 border border-gold rounded-xl p-6 shadow-lg">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-gold">Recent Member Approvals</h2>
-            <button
-              onClick={exportApprovalsCSV}
-              className="bg-gold hover:bg-yellow-400 text-black font-semibold py-1 px-3 rounded text-sm"
-            >
-              Export CSV
-            </button>
-          </div>
+          <h2 className="text-lg font-semibold text-gold mb-4">Recent Member Approvals</h2>
           {recent.length === 0 ? (
             <p className="text-rose-200 italic">No recent activity</p>
           ) : (
@@ -269,7 +267,6 @@ const AdminDashboard = () => {
           )}
         </div>
 
-        {/* Contact Requests */}
         <div className="mt-12">
           <ContactRequestsTab />
         </div>
