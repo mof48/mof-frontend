@@ -10,6 +10,7 @@
     "lint": "eslint . --ext js,jsx --config eslint.config.js"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.4",
     "framer-motion": "^10.16.1",
     "lucide-react": "^0.509.0",
     "react": "^18.2.0",
