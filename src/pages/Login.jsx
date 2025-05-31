@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [membershipNumber, setMembershipNumber] = useState('');
@@ -9,23 +9,26 @@ function Login() {
 
   const navigate = useNavigate();
 
-  // ✅ Auto-redirect if already logged in
-  const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  if (token && user?.role) {
-    const role = user.role.toLowerCase();
-    const tier = user.tier?.toLowerCase();
+  // ✅ Redirect logged-in users
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-    if (role === 'admin') return <Navigate to="/admin" replace />;
-    if (role === 'member') {
-      if (tier === 'gold-rose') return <Navigate to="/dashboard/gold-rose" replace />;
-      if (tier === 'platinum-lily') return <Navigate to="/dashboard/platinum-lily" replace />;
-      if (tier === 'diamond-orchid') return <Navigate to="/dashboard/diamond-orchid" replace />;
-      return <Navigate to="/guest" replace />;
+    if (token && user?.role) {
+      const role = user.role.toLowerCase();
+      const tier = user.tier?.toLowerCase();
+
+      if (role === 'admin') return navigate('/admin');
+      if (role === 'member') {
+        if (tier === 'gold-rose') return navigate('/dashboard/gold-rose');
+        if (tier === 'platinum-lily') return navigate('/dashboard/platinum-lily');
+        if (tier === 'diamond-orchid') return navigate('/dashboard/diamond-orchid');
+        return navigate('/guest');
+      }
+      if (role === 'speaker') return navigate('/dashboard/speaker');
+      if (role === 'guest') return navigate('/guest');
     }
-    if (role === 'speaker') return <Navigate to="/dashboard/speaker" replace />;
-    if (role === 'guest') return <Navigate to="/guest" replace />;
-  }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,13 +88,20 @@ function Login() {
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-center h-full px-4 md:px-16">
         {/* Left Side */}
         <div className="md:w-1/2 mb-8 md:mb-0 text-center md:text-left space-y-4">
-        <img src="/images/mof-static.jpg" alt="MOF Logo" className="mx-auto md:mx-0 w-48" />
+          <img
+            src="/images/mof-static.jpg"
+            alt="MOF Logo"
+            className="mx-auto md:mx-0 w-48"
+          />
           <h1 className="text-3xl font-bold text-gold">Welcome to Elite Women</h1>
           <p className="text-pink-300">Enter the sanctuary of brilliance and beauty.</p>
         </div>
 
         {/* Right Side */}
-        <form onSubmit={handleSubmit} className="md:w-1/2 bg-white/10 backdrop-blur-lg p-8 rounded-xl space-y-6 shadow-lg">
+        <form
+          onSubmit={handleSubmit}
+          className="md:w-1/2 bg-white/10 backdrop-blur-lg p-8 rounded-xl space-y-6 shadow-lg"
+        >
           <h2 className="text-xl font-semibold text-gold">Member Login</h2>
 
           <div>
