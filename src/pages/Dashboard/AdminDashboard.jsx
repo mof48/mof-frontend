@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import Navbar from '@/components/Navbar';
+import AdminLayout from '@/components/AdminLayout';
 import DashboardHero from '@/components/DashboardHero';
 import ContactRequestsTab from '@/components/ContactRequestsTab';
 import ProfileSettings from '@/components/ProfileSettings';
@@ -130,11 +130,9 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black to-[#1a001a] text-white font-playfair">
-      <Navbar />
+    <AdminLayout>
       <Toaster position="top-right" reverseOrder={false} />
-
-      <div className="pt-32 px-6 max-w-7xl mx-auto">
+      <div className="pt-12 px-6 max-w-7xl mx-auto">
         <DashboardHero
           name={user?.name?.split(' ')[0] || 'Admin'}
           tier="admin"
@@ -271,7 +269,7 @@ const AdminDashboard = () => {
           <ContactRequestsTab />
         </div>
       </div>
-    </div>
+    </AdminLayout>
   );
 };
 

@@ -12,6 +12,12 @@ module.exports = {
           200: '#FBB6CE',
           300: '#F687B3',
         },
+        dark: {
+          900: '#1a001a',
+        },
+      },
+      fontFamily: {
+        playfair: ['Playfair Display', 'serif'],
       },
     },
   },
