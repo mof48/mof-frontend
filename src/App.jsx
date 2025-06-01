@@ -21,6 +21,7 @@ import PlatinumLilyDashboard from './pages/Dashboard/PlatinumLilyDashboard';
 import DiamondOrchidDashboard from './pages/Dashboard/DiamondOrchidDashboard';
 import GuestDashboard from './pages/Dashboard/GuestDashboard';
 import SpeakerDashboard from './pages/Dashboard/SpeakerDashboard';
+import AdminMembers from './pages/Dashboard/AdminMembers'; // ✅ Ensure this is imported
 
 // Route Protection
 import ProtectedRoute from './components/ProtectedRoute';
@@ -35,14 +36,22 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/store" element={<Store />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/join" element={<Join />} /> {/* ✅ Join route added */}
-       
+        <Route path="/join" element={<Join />} />
+
         {/* 🔒 Protected Dashboards */}
         <Route
           path="/admin"
           element={
             <ProtectedRoute allowedRoles={['admin']}>
               <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/members"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <AdminMembers />
             </ProtectedRoute>
           }
         />
