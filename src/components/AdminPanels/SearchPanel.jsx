@@ -1,61 +1,34 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
-const SearchPanel = () => {
+const SearchPanel = ({ headers, onImpersonate }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState([]);
-
-  const token = localStorage.getItem('token');
-  const headers = { Authorization: `Bearer ${token}` };
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = () => {
-    if (!searchTerm.trim()) return;
-
-    toast.loading('Searching...');
+    toast.loading('Searching members...');
     fetch(`https://api.mofwomen.com/api/admin/search-users?q=${searchTerm}`, { headers })
       .then((res) => res.json())
       .then((data) => {
-        setResults(data);
+        setSearchResults(data);
         toast.dismiss();
-        toast.success(`${data.length} result(s) found`);
+        toast.success(`${data.length} results found.`);
       })
       .catch(() => {
         toast.dismiss();
-        toast.error('Search failed');
-      });
-  };
-
-  const handleImpersonate = (userId) => {
-    toast.loading('Switching...');
-    fetch(`https://api.mofwomen.com/api/admin/impersonate/${userId}`, { headers })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.token && data.user) {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('user', JSON.stringify(data.user));
-          toast.success('Impersonated — refreshing');
-          setTimeout(() => (window.location.href = '/'), 1000);
-        } else {
-          toast.dismiss();
-          toast.error('Failed to impersonate');
-        }
-      })
-      .catch(() => {
-        toast.dismiss();
-        toast.error('Impersonation error');
+        toast.error('Search failed. Try again.');
       });
   };
 
   return (
-    <div className="bg-white/10 border border-gold p-6 rounded-xl shadow-md">
-      <h2 className="text-lg font-semibold text-gold mb-4">🔍 Search Members</h2>
-
-      <div className="flex gap-3 mb-4">
+    <div className="mb-12">
+      <h2 className="text-lg text-gold font-semibold mb-2">🔍 Search Members</h2>
+      <div className="flex gap-3 items-center">
         <input
           type="text"
-          placeholder="Search by name, email or tier..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search by name, email or tier..."
           className="px-4 py-2 rounded bg-white/10 border border-white/20 text-white w-full"
         />
         <button
@@ -66,25 +39,24 @@ const SearchPanel = () => {
         </button>
       </div>
 
-      {results.length > 0 && (
-        <ul className="space-y-3 text-sm">
-          {results.map((user) => (
-            <li
-              key={user._id}
-              className="flex justify-between border-b border-white/10 pb-2 items-center"
-            >
-              <div>
-                <strong className="text-gold">{user.name}</strong> – {user.email} – {user.tier}
-              </div>
-              <button
-                onClick={() => handleImpersonate(user._id)}
-                className="text-xs bg-white text-black px-3 py-1 rounded hover:bg-gray-200"
-              >
-                Login as
-              </button>
-            </li>
-          ))}
-        </ul>
+      {searchResults.length > 0 && (
+        <div className="mt-4 bg-white/5 p-4 rounded-lg">
+          <ul className="space-y-2 text-sm">
+            {searchResults.map((u) => (
+              <li key={u._id} className="flex justify-between border-b border-white/10 pb-2">
+                <div>
+                  <strong className="text-gold">{u.name}</strong> – {u.email} – {u.tier}
+                </div>
+                <button
+                  onClick={() => onImpersonate(u._id)}
+                  className="text-xs bg-white text-black px-3 py-1 rounded hover:bg-gray-200"
+                >
+                  Login as
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );

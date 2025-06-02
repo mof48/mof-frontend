@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Home,
-  Users,
+  UserCircle,
   BarChart,
-  Settings,
+  FileText,
+  Mail,
   LogOut,
   Menu,
   X,
 } from 'lucide-react';
-import { getUserRequests } from '@/api/contactApi'; // ✅ Make sure this is the correct path
+import { getUserRequests } from '@/api/contactApi';
 
 const AdminLayout = ({ children }) => {
   const location = useLocation();
@@ -27,23 +28,16 @@ const AdminLayout = ({ children }) => {
   }, []);
 
   const navItems = [
-    { path: '/admin', label: 'Dashboard', icon: <Home size={18} /> },
+    { path: '/admin/overview', label: 'Overview', icon: <Home size={18} /> },
+    { path: '/admin/profile', label: 'Profile', icon: <UserCircle size={18} /> },
+    { path: '/admin/feed', label: 'Feed', icon: <FileText size={18} /> },
     {
-      path: '/admin/members',
-      label: (
-        <div className="flex items-center gap-2">
-          Members
-          {pendingCount > 0 && (
-            <span className="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
-              {pendingCount}
-            </span>
-          )}
-        </div>
-      ),
-      icon: <Users size={18} />,
+      path: '/admin/requests',
+      label: 'Requests',
+      icon: <Mail size={18} />,
+      badge: pendingCount,
     },
-    { path: '/admin/stats', label: 'Stats', icon: <BarChart size={18} /> },
-    { path: '/admin/settings', label: 'Settings', icon: <Settings size={18} /> },
+    { path: '/admin/members', label: 'Members', icon: <BarChart size={18} /> },
   ];
 
   return (
@@ -60,19 +54,26 @@ const AdminLayout = ({ children }) => {
         </div>
 
         <nav className="space-y-4">
-          {navItems.map(({ path, label, icon }) => (
+          {navItems.map(({ path, label, icon, badge }) => (
             <Link
               key={path}
               to={path}
-              className={`flex items-center gap-3 px-3 py-2 rounded-md transition ${
+              className={`flex items-center justify-between px-3 py-2 rounded-md transition ${
                 location.pathname === path
                   ? 'bg-white/10 text-gold'
                   : 'text-white/70 hover:bg-white/10'
               }`}
               onClick={() => setSidebarOpen(false)}
             >
-              {icon}
-              <span>{label}</span>
+              <div className="flex items-center gap-3">
+                {icon}
+                <span>{label}</span>
+              </div>
+              {badge > 0 && (
+                <span className="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
+                  {badge}
+                </span>
+              )}
             </Link>
           ))}
         </nav>

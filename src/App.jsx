@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-
+import { Navigate } from 'react-router-dom';
 // Public Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -8,6 +8,12 @@ import Store from './pages/Store';
 import Unauthorized from './pages/Unauthorized';
 import NotFound from './pages/NotFound';
 import Join from './pages/Join';
+// Admin Subpages
+import AdminOverview from './pages/Admin/Overview';
+import AdminProfile from './pages/Admin/Profile';
+import AdminFeed from './pages/Admin/Feed';
+import AdminRequests from './pages/Admin/Requests';
+import AdminMembersPage from './pages/Admin/Members'; // Renamed to avoid clash with existing AdminMembers
 
 // User Pages
 import Profile from './pages/Profile';
@@ -121,6 +127,50 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+  path="/admin"
+  element={<Navigate to="/admin/overview" replace />}
+/>
+<Route
+  path="/admin/overview"
+  element={
+    <ProtectedRoute allowedRoles={['admin']}>
+      <AdminOverview />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/admin/profile"
+  element={
+    <ProtectedRoute allowedRoles={['admin']}>
+      <AdminProfile />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/admin/feed"
+  element={
+    <ProtectedRoute allowedRoles={['admin']}>
+      <AdminFeed />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/admin/requests"
+  element={
+    <ProtectedRoute allowedRoles={['admin']}>
+      <AdminRequests />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/admin/members"
+  element={
+    <ProtectedRoute allowedRoles={['admin']}>
+      <AdminMembersPage />
+    </ProtectedRoute>
+  }
+/>
 
         {/* ❌ 404 Fallback */}
         <Route path="*" element={<NotFound />} />
