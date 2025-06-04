@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AdminLayout from '@/components/AdminLayout';
-import StatsPanel from '@/components/AdminPanels/StatsPanel';
+import DashboardHero from '@/components/DashboardHero';
 import ChartPanel from '@/components/AdminPanels/ChartPanel';
+import StatsPanel from '@/components/AdminPanels/StatsPanel';
+import ApprovalList from '@/components/AdminPanels/ApprovalList';
 
-const Overview = () => {
-  const [stats, setStats] = useState({});
-  const [chartData, setChartData] = useState([]);
-  const [range, setRange] = useState('7d');
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const headers = { Authorization: `Bearer ${token}` };
-
-    fetch('https://api.mofwomen.com/api/admin/stats', { headers })
-      .then((res) => res.json())
-      .then(setStats);
-
-    fetch(`https://api.mofwomen.com/api/admin/chart-data?range=${range}`, { headers })
-      .then((res) => res.json())
-      .then(setChartData);
-  }, [range]);
-
+const AdminOverview = () => {
   return (
     <AdminLayout>
-      <StatsPanel stats={stats} />
-      <ChartPanel data={chartData} range={range} onRangeChange={setRange} />
+      <div className="pt-12 px-6 max-w-7xl mx-auto">
+        <DashboardHero
+          name="Admin"
+          tier="admin"
+          message="Welcome back to the empire."
+        />
+        <StatsPanel />
+        <ChartPanel />
+        <ApprovalList />
+      </div>
     </AdminLayout>
   );
 };
 
-export default Overview;
+export default AdminOverview;

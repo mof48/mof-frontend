@@ -1,13 +1,15 @@
 import React from 'react';
 import AdminLayout from '@/components/AdminLayout';
-import SearchPanel from '@/components/AdminPanels/SearchPanel';
+import MemberSearchPanel from '@/components/AdminPanels/MemberSearchPanel';
 
-const Members = () => {
+const AdminMembers = () => {
   return (
     <AdminLayout>
-      <SearchPanel />
+      <div className="pt-12 px-6 max-w-6xl mx-auto">
+        <MemberSearchPanel />
+      </div>
     </AdminLayout>
   );
 };
 
-export default Members;
+export default AdminMembers;
